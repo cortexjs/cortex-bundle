@@ -6,6 +6,9 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha -R spec test"
   },
+  "bin": {
+    "cortex-bundle": "./bin/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/cortexjs/cortex-bundle.git"
@@ -34,6 +37,7 @@
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
     "read-cortex-json": "^2.1.1",
+    "readable-stream": "^1.0.27-1",
     "through2": "^0.5.1",
     "underscore": "^1.6.0"
   }
