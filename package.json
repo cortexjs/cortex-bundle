@@ -1,0 +1,40 @@
+{
+  "name": "cortex-bundle",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R spec test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cortexjs/cortex-bundle.git"
+  },
+  "keywords": [
+    "cortex-bundle",
+    "cortex",
+    "bundle"
+  ],
+  "engines": {
+    "node": ">=0.11.0"
+  },
+  "author": "villadora",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cortexjs/cortex-bundle/issues"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.20.1"
+  },
+  "dependencies": {
+    "cortex-profile": "^2.1.2",
+    "cortex-shrinkwrap": "^1.1.1",
+    "fs-expand": "^0.2.1",
+    "minimist": "^0.2.0",
+    "mkdirp": "^0.5.0",
+    "read-cortex-json": "^2.1.1",
+    "through2": "^0.5.1",
+    "underscore": "^1.6.0"
+  }
+}
