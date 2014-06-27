@@ -48,15 +48,41 @@ readjson.package_root(cwd, function(cwd) {
       profile.init();
 
       var cache_root = profile.get('cache_root');
-      var built_root = profile.get('built_root');
 
-      require('../').bundleJs(pkg, {
+      require('../lib').bundle(pkg, {
         cache_root: cache_root,
-        built_root: built_root,
-        dest: dest,
-        outputFile: outputFile
-      }, function(err) {
-        if (err) onError(err);
+        built_root: path.join(cwd, 'neurons'),
+        cwd: cwd
+      }, function(err, map) {
+        if (err) return onError(err);
+
+        var keys = Object.keys(map);
+
+        if (!keys.length) {
+          return onError("Can not find any files for bundle");
+        }
+
+        if (keys.length > 1 && !dest) {
+          return onError("More than one files, 'dest' must be provided");
+        }
+
+
+        if (dest) {
+          for (var file in map) {
+            var destFile = path.join(dest, file);
+            mkdirp(path.dirname(destFile), function(err) {
+              map[file].pipe(fs.createWriteStream(destFile));
+            });
+          }
+        } else {
+          var file = keys[0];
+          var st = map[file];
+
+          if (outputFile) {
+            st.pipe(fs.createWriteStream(outputFile));
+          } else
+            st.pipe(process.stdout);
+        }
       });
     });
   } else {

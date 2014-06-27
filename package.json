@@ -28,19 +28,19 @@
   },
   "devDependencies": {
     "chai": "^1.9.1",
+    "jshint": "^2.5.1",
     "mocha": "^1.20.1"
   },
   "dependencies": {
     "async": "^0.9.0",
-    "cortex-profile": "^2.1.2",
+    "cortex-profile": "^2.1.5",
     "cortex-shrinkwrap": "^2.0.0",
     "fs-expand": "^0.2.1",
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
-    "neuron-config": "^0.1.1",
+    "neuron-config": "^0.2.0",
     "read-cortex-json": "^2.1.1",
     "readable-stream": "^1.0.27-1",
-    "resumer": "0.0.0",
     "seq-stream": "0.0.3",
     "through2": "^0.5.1",
     "underscore": "^1.6.0"

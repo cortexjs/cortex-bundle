@@ -65,11 +65,6 @@ module.exports.bundleJs = function(pkg, options, callback) {
         main_files: files
       }, function(err, map) {
         if (err) return callback(err);
-        nconfig({
-
-        }, function() {
-
-        });
 
 
         if (dest) {
