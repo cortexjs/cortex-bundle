@@ -1,6 +1,6 @@
 {
   "name": "cortex-bundle",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Bundle current project into single javascript file, or with a single addition css file if css is specified.",
   "main": "index.js",
   "scripts": {
