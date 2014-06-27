@@ -39,8 +39,9 @@
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
     "neuron-config": "^0.2.0",
-    "read-cortex-json": "^2.1.1",
-    "readable-stream": "^1.0.27-1",
+    "read-cortex-json": "^2.2.1",
+    "readable-stream": "^1.0.27",
+    "semver": "^2.3.1",
     "seq-stream": "0.0.3",
     "through2": "^0.5.1",
     "underscore": "^1.6.0"

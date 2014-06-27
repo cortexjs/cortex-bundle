@@ -3,6 +3,7 @@
 var readjson = require('read-cortex-json');
 var path = require('path');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 
 var argv = require('minimist')(process.argv.slice(2));
 
@@ -15,7 +16,10 @@ if (argv.version || argv.v) {
 
 if (argv.help || argv.h) {
   console.log("Usage: cortex bundle [-o|--output file] [-d|--dest dir] [--cwd cwd] [--js] [--css]");
-
+  console.log("\t--o, --output\toutput file");
+  console.log("\t--d, --dest\toutput dest directory");
+  console.log("\t--js\t\tbuild js file");
+  console.log("\t--css\t\tbuild css file");
   process.exit(0);
 }
 
@@ -33,15 +37,14 @@ var outputFile = argv.o || argv.output;
 if (outputFile)
   outputFile = path.resolve(cwd, outputFile);
 
-
-
 var js = argv.js || !argv.css;
 var css = argv.css || !argv.js;
+
 
 readjson.package_root(cwd, function(cwd) {
   // find cwd
   if (cwd) {
-    readjson.read(cwd, function(err, pkg) {
+    readjson.enhanced(cwd, function(err, pkg) {
       err && onError(err);
 
       var profile = require('cortex-profile')();
@@ -50,6 +53,8 @@ readjson.package_root(cwd, function(cwd) {
       var cache_root = profile.get('cache_root');
 
       require('../lib').bundle(pkg, {
+        css: css,
+        js: js,
         cache_root: cache_root,
         built_root: path.join(cwd, 'neurons'),
         cwd: cwd
@@ -68,12 +73,12 @@ readjson.package_root(cwd, function(cwd) {
 
 
         if (dest) {
-          for (var file in map) {
+          keys.forEach(function(file) {
             var destFile = path.join(dest, file);
             mkdirp(path.dirname(destFile), function(err) {
               map[file].pipe(fs.createWriteStream(destFile));
             });
-          }
+          });
         } else {
           var file = keys[0];
           var st = map[file];
