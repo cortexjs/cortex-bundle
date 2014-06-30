@@ -47,15 +47,9 @@ readjson.package_root(cwd, function(cwd) {
     readjson.enhanced(cwd, function(err, pkg) {
       err && onError(err);
 
-      var profile = require('cortex-profile')();
-      profile.init();
-
-      var cache_root = profile.get('cache_root');
-
       require('../lib').bundle(pkg, {
         css: css,
         js: js,
-        cache_root: cache_root,
         built_root: path.join(cwd, 'neurons'),
         cwd: cwd
       }, function(err, map) {
