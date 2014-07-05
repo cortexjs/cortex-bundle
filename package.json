@@ -1,6 +1,6 @@
 {
   "name": "cortex-bundle",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Bundle current project into single javascript file, or with a single addition css file if css is specified.",
   "main": "index.js",
   "scripts": {
@@ -38,7 +38,8 @@
     "fs-expand": "^0.2.1",
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
-    "neuron-config": "^0.2.0",
+    "neuron-tree": "^2.0.2",
+    "neuronjs": "^7.0.4",
     "read-cortex-json": "^3.3.0",
     "readable-stream": "^1.0.27",
     "semver": "^2.3.1",

@@ -13,11 +13,12 @@ if (argv.version || argv.v) {
   process.exit(0);
 }
 
-
 if (argv.help || argv.h) {
-  console.log("Usage: cortex bundle [-o|--output file] [-d|--dest dir] [--cwd cwd] [--js] [--css]");
+  console.log("Usage: cortex bundle [-o|--output file] [-d|--dest dir] [--cwd cwd] [--with-neuron] [--no-config] [--js] [--css]");
   console.log("\t--o, --output\toutput file");
   console.log("\t--d, --dest\toutput dest directory");
+  console.log("\t--no-config,\ddon't output config");
+  console.log("\t--with-neuron,\toutput loader and config");
   console.log("\t--js\t\tbuild js file");
   console.log("\t--css\t\tbuild css file");
   process.exit(0);
@@ -33,12 +34,16 @@ if (dest) {
   }
 }
 
+
 var outputFile = argv.o || argv.output;
 if (outputFile)
   outputFile = path.resolve(cwd, outputFile);
 
 var js = argv.js || !argv.css;
-var css = argv.css || !argv.js;
+var css = argv.css; // disable css by default, as there are relative path problem
+
+var config = argv.config !== false;
+var neuron = argv['with-neuron'] || false;
 
 
 readjson.package_root(cwd, function(cwd) {
@@ -51,6 +56,8 @@ readjson.package_root(cwd, function(cwd) {
         css: css,
         js: js,
         built_root: path.join(cwd, 'neurons'),
+        neuron: neuron,
+        config: config,
         cwd: cwd
       }, function(err, map) {
         if (err) return onError(err);

@@ -5,14 +5,32 @@
 ## Install
 
 ```bash
-$ npm install cortex-bundle --save
+$ npm install cortex-bundle -g
 ```
 
 ## Usage
 
-```js
-var cortex_bundle = require('cortex-bundle');
+
+Bundle is used as cortex plugin
+
+```bash
+cortex bundle
 ```
+
+By default, bunlde command will bunlde javascript files, with neuron configurations.
+
+If you want to bundle the loader together, you can run following command:
+
+```bash
+cortex bundle --with-neuron
+```
+
+If you want to bunlde only a portion of libs, but not used as page entry. In this situation, you don't need config:
+
+```bash
+cortex bundle --no-config
+```
+
 
 ## Licence
 
