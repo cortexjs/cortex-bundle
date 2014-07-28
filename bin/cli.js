@@ -17,8 +17,8 @@ if (argv.help || argv.h) {
   console.log("Usage: cortex bundle [-o|--output file] [-d|--dest dir] [--cwd cwd] [--with-neuron] [--no-config] [--js] [--css]");
   console.log("\t--o, --output\toutput file");
   console.log("\t--d, --dest\toutput dest directory");
-  console.log("\t--no-config,\ddon't output config");
-  console.log("\t--with-neuron,\toutput loader and config");
+  console.log("\t--lib-only,\tbundled as library, without neuron and neuron config");
+  console.log("\t--no-neuron,\tdon't output neuron content");
   console.log("\t--js\t\tbuild js file");
   console.log("\t--css\t\tbuild css file");
   process.exit(0);
@@ -42,9 +42,8 @@ if (outputFile)
 var js = argv.js || !argv.css;
 var css = argv.css; // disable css by default, as there are relative path problem
 
-var config = argv.config !== false;
-var neuron = argv['with-neuron'] || false;
-
+var libOnly = !! argv['lib-only'];
+var neuron = argv.neuron !== false;
 
 readjson.package_root(cwd, function(cwd) {
   // find cwd
@@ -52,12 +51,12 @@ readjson.package_root(cwd, function(cwd) {
     readjson.enhanced(cwd, function(err, pkg) {
       err && onError(err);
 
-      require('../lib').bundle(pkg, {
+      require('..').bundle(pkg, {
         css: css,
         js: js,
         built_root: path.join(cwd, 'neurons'),
+        libOnly: libOnly,
         neuron: neuron,
-        config: config,
         cwd: cwd
       }, function(err, map) {
         if (err) return onError(err);
@@ -86,8 +85,10 @@ readjson.package_root(cwd, function(cwd) {
 
           if (outputFile) {
             st.pipe(fs.createWriteStream(outputFile));
-          } else
+          } else {
             st.pipe(process.stdout);
+            process.stdout.on('error', process.exit);
+          }
         }
       });
     });
