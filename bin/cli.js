@@ -40,7 +40,7 @@ if (outputFile)
   outputFile = path.resolve(cwd, outputFile);
 
 var js = argv.js || !argv.css;
-var css = argv.css; // disable css by default, as there are relative path problem
+var css = argv.css || !argv.js;
 
 var libOnly = !! argv['lib-only'];
 var neuron = argv.neuron !== false;
@@ -58,7 +58,7 @@ readjson.package_root(cwd, function(cwd) {
         libOnly: libOnly,
         neuron: neuron,
         cwd: cwd
-      }, function(err, map) {
+      }, function(err, map, more) {
         if (err) return onError(err);
 
         var keys = Object.keys(map);
@@ -68,9 +68,14 @@ readjson.package_root(cwd, function(cwd) {
         }
 
         if (keys.length > 1 && !dest) {
-          return onError("More than one files, 'dest' must be provided");
+          console.error("More than one files, 'dest' is not provided, './build' will be used as default");
+          dest = path.join(cwd, 'build');
         }
 
+
+        if (dest) {
+
+        }
 
         if (dest) {
           keys.forEach(function(file) {
