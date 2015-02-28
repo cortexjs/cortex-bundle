@@ -72,11 +72,6 @@ readjson.package_root(cwd, function(cwd) {
           dest = path.join(cwd, 'build');
         }
 
-
-        if (dest) {
-
-        }
-
         if (dest) {
           keys.forEach(function(file) {
             var destFile = path.join(dest, file);
