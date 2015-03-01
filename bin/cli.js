@@ -44,6 +44,7 @@ var css = argv.css || !argv.js;
 
 var libOnly = !! argv['lib-only'];
 var neuron = argv.neuron !== false;
+var builtRoot = argv['built-root'] || 'neurons';
 
 readjson.package_root(cwd, function(cwd) {
   // find cwd
