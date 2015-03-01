@@ -19,6 +19,8 @@ if (argv.help || argv.h) {
   console.log("\t--d, --dest\toutput dest directory");
   console.log("\t--lib-only,\tbundled as library, without neuron and neuron config");
   console.log("\t--no-neuron,\tdon't output neuron content");
+  console.log("\t--built-root,\tdirectory of cortex build dest");
+  console.log("\t--prerelease,\tdirectory of cortex build dest");
   console.log("\t--js\t\tbuild js file");
   console.log("\t--css\t\tbuild css file");
   process.exit(0);
@@ -45,6 +47,7 @@ var css = argv.css || !argv.js;
 var libOnly = !! argv['lib-only'];
 var neuron = argv.neuron !== false;
 var builtRoot = argv['built-root'] || 'neurons';
+var prerelease = argv['prerelease'];
 
 readjson.package_root(cwd, function(cwd) {
   // find cwd
@@ -52,10 +55,15 @@ readjson.package_root(cwd, function(cwd) {
     readjson.enhanced(cwd, function(err, pkg) {
       err && onError(err);
 
+
+      if(prerelease){
+        pkg.version = pkg.version + "-" + prerelease;
+      }
+
       require('..').bundle(pkg, {
         css: css,
         js: js,
-        built_root: path.join(cwd, 'neurons'),
+        built_root: path.join(cwd, builtRoot),
         libOnly: libOnly,
         neuron: neuron,
         cwd: cwd
