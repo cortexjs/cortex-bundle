@@ -48,6 +48,7 @@ var libOnly = !! argv['lib-only'];
 var neuron = argv.neuron !== false;
 var builtRoot = argv['built-root'] || 'neurons';
 var prerelease = argv['prerelease'];
+var nrpath = argv['path'];
 
 readjson.package_root(cwd, function(cwd) {
   // find cwd
@@ -64,6 +65,7 @@ readjson.package_root(cwd, function(cwd) {
         css: css,
         js: js,
         built_root: path.join(cwd, builtRoot),
+        path: nrpath,
         libOnly: libOnly,
         neuron: neuron,
         cwd: cwd
